@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>나만의 심리테스트</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <style>
         body { 
             font-family: sans-serif; 
             text-align: center; 
             padding: 20px;
+            /* 모바일에서 콘텐츠가 중앙에 오도록 최대 너비 설정 */
+            max-width: 600px; 
+            margin: 0 auto;
         }
         
         .option-button { 
@@ -38,6 +42,8 @@
         
         #result-title {
             color: #d81b60; 
+            /* 제목에 줄바꿈이 들어갔으므로, 텍스트 크기를 조금 키워 가독성 유지 */
+            font-size: 1.5em;
         }
         
     </style>
@@ -62,7 +68,7 @@
 
         <div id="result-screen" class="hidden">
             <h2>당신은...</h2>
-            <h3 id="result-title"></h3>
+            <h3 id="result-title"></h3> 
             <p id="result-description"></p>
             <img id="result-image" src="" alt="결과 이미지" style="width: 300px;">
             <button class="option-button" onclick="window.location.reload()">눈 씻고 다시 보기</button>
@@ -72,7 +78,7 @@
 
     <script>
         // ==========================================================
-        // 1. 데이터 정의 (파일 이름: gomo_result.png, imo_result.png)
+        // 1. 데이터 정의 (파일 이름: gomo_result.jpg, imo_result.jpg로 가정)
         // ==========================================================
         const questions = [
             {
@@ -108,16 +114,19 @@
             { 
                 minScore: 0, 
                 maxScore: 69, 
-                title: "고모력 MAX 👉🏻확신의 고모상👈🏻", 
+                // 고모력 MAX 줄바꿈 적용
+                title: "고모력 MAX <br> 👉🏻확신의 고모상👈🏻", 
                 desc: "7월의 만나요 이모들 🍼👶🏻🫧", 
-                image: "gomo_result.jpg" // 파일 이름 일치 확인 완료
+                // 이미지 확장자를 .jpg로 통일 (실제 파일에 따라 수정하세요)
+                image: "gomo_result.jpg" 
             },
             { 
                 minScore: 70, 
                 maxScore: 150, 
-                title: "이모력 MAX 👉🏻확신의 이모상👈🏻", 
+                // 이모력 MAX 줄바꿈 적용
+                title: "이모력 MAX <br> 👉🏻확신의 이모상👈🏻", 
                 desc: "7월의 만나요 이모들 🍼👶🏻🫧", 
-                image: "imo_result.jpg" // 파일 이름 일치 확인 완료
+                image: "imo_result.jpg" 
             }
         ];
 
@@ -135,7 +144,7 @@
         const progressText = document.getElementById('progress-text');
         const resultTitle = document.getElementById('result-title');
         const resultDescription = document.getElementById('result-description');
-        const resultImage = document.getElementById('result-image'); // ID를 사용해 이미지 요소 가져오기
+        const resultImage = document.getElementById('result-image');
 
         // ==========================================================
         // 3. 이벤트 핸들러 및 함수
@@ -180,7 +189,8 @@
             const finalResult = results.find(r => totalScore >= r.minScore && totalScore <= r.maxScore);
 
             if (finalResult) {
-                resultTitle.textContent = finalResult.title;
+                // innerHTML을 사용하여 <br> 태그(줄바꿈)가 적용되도록 수정
+                resultTitle.innerHTML = finalResult.title; 
                 resultDescription.textContent = finalResult.desc;
                 
                 // ⭐ 최종 이미지 파일 경로 설정
